@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace AspNetCore.HealthChecks.Http
+namespace HealthChecks.Http
 {
     /// <summary>
     /// Provides basic extension methods for registering <see cref="HttpHealthCheck"/>s in an <see cref="IHealthChecksBuilder"/>.

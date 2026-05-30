@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>HTTP Health Checks</Title>
+    <Authors>joezawisa</Authors>
+    <Description>A NuGet package providing quick and easy health checks for .NET applications that rely on external HTTP web APIs.</Description>
+    <Copyright>This project is licensed under the terms of the MIT license.</Copyright>
+    <PackageTags>diagnostics;healthchecks;http</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/joezawisa/HttpHealthChecks</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/joezawisa/HttpHealthChecks</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="10.*" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="10.*" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\LICENSE" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>

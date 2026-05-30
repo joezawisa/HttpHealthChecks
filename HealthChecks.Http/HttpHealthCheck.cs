@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace AspNetCore.HealthChecks.Http
+namespace HealthChecks.Http
 {
     /// <summary>
     /// A health check that makes a request to an HTTP endpoint.
