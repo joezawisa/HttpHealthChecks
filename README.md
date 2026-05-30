@@ -47,7 +47,9 @@ app.Run();
 
 ## Feedback
 
-Notice something wrong or have an idea to make this better? Create an issue in [joezawisa/HttpHealthChecks][GitHub Repository] on GitHub.
+Notice something wrong? Create an issue in [joezawisa/HttpHealthChecks][GitHub Repository] on GitHub.
+
+Have an idea to make this better? Start a discussion in [joezawisa/HttpHealthChecks][GitHub Repository] on GitHub.
 
 ## Contributing
 

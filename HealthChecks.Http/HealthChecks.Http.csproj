@@ -9,7 +9,6 @@
     <PackageTags>diagnostics;healthchecks;http</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/joezawisa/HttpHealthChecks</PackageProjectUrl>
     <RepositoryUrl>https://github.com/joezawisa/HttpHealthChecks</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
