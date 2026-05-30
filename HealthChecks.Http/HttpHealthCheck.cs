@@ -74,13 +74,6 @@ namespace HealthChecks.Http
                     description: $"Did not receive a response from {_url}.",
                     exception: exception
                 );
-            } catch (OperationCanceledException exception) when (cancellationToken.IsCancellationRequested)
-            {
-                return new HealthCheckResult(
-                    status: context.Registration.FailureStatus,
-                    description: $"Request to {_url} timed out.",
-                    exception: exception
-                );
             }
         }
     }
