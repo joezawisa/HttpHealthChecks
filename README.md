@@ -12,14 +12,18 @@ To register an HTTP health check, call `AddHttpHealthCheck` in your `Program.cs`
 using HealthChecks.Http;
 using Microsoft.Builder;
 using Microsoft.Diagnostics.HealthChecks;
+using Microsoft.Extensions.DependencyInjection;
 
 WebApplicationBuilder webAppBuilder = WebApplication.CreateBuilder(args);
+webAppBuilder.Services.AddHttpClient();
 
 ...
 
 IHealthChecksBuilder healthChecksBuilder = webAppBuilder.Services.AddHealthChecks();
 healthChecksBuilder.AddHttpHealthCheck(name: "Example", url: "https://example.com/health");
 ```
+
+Be sure to also call `AddHttpClient` to make an `IHttpClientFactory` available to your health checks.
 
 Multiple HTTP health checks can be registered with
 different names.

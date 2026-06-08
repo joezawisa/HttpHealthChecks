@@ -1,7 +1,7 @@
 using System.Net;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace HealthChecks.Http.UnitTests;
+namespace HealthChecks.Http.Tests;
 
 file class MockHttpMessageHandler(Func<HttpResponseMessage> responseGenerator) : HttpMessageHandler
 {
@@ -26,7 +26,8 @@ file class MockHttpClientFactory(
     }
 }
 
-public class HttpHealthCheckTests(ITestContextAccessor testContextAccessor)
+[Trait("Category", "Unit")]
+public class UnitTests(ITestContextAccessor testContextAccessor)
 {
     [Fact]
     public async Task CheckHealthAsync_GivenSuccessResponse_ReturnsHealthyStatus()
