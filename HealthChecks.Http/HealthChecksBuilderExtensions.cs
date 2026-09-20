@@ -20,9 +20,10 @@ namespace HealthChecks.Http
         /// </code>
         /// </example>
         /// </summary>
+        /// <param name="builder"><inheritdoc cref="HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck(IHealthChecksBuilder, string, object[])" /></param>
+        /// <param name="name"><inheritdoc cref="HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck(IHealthChecksBuilder, string, object[])" /></param>
         /// <param name="url">URL for the health check to request.</param>
-        /// <inheritdoc cref="HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck" path="/param"/>
-        /// <inheritdoc cref="HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck" path="/returns"/>
+        /// <inheritdoc cref="HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck(IHealthChecksBuilder, string, object[])" path="/returns" />
         public static IHealthChecksBuilder AddHttpHealthCheck(
             this IHealthChecksBuilder builder,
             string name,
