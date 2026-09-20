@@ -1,0 +1,7 @@
+mode: ContinuousDeployment
+strategies:
+  - Mainline
+branches:
+  main:
+    increment: None
+    regex: ".*"
