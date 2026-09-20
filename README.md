@@ -2,6 +2,10 @@
 
 A NuGet package providing quick and easy health checks for .NET applications that rely on external HTTP web APIs.
 
+[NuGet Gallery: HealthChecks.Http](https://www.nuget.org/packages/HealthChecks.Http)
+
+[![Release](https://github.com/joezawisa/HttpHealthChecks/actions/workflows/release.yml/badge.svg)][Release Pipeline]
+
 ## Getting Started
 
 For guidance on health checks in general, refer to [Health checks in ASP.NET Core][Microsoft Health Check Documentation].
@@ -59,9 +63,12 @@ Have an idea to make this better? Start a discussion in [joezawisa/HttpHealthChe
 
 Submit a pull request to [joezawisa/HttpHealthChecks][GitHub Repository] on GitHub. If you are adding a new feature, please create an issue to discuss it first. If you are fixing a bug, feel free to skip right to a pull request.
 
+This project uses [GitVersion](https://gitversion.net) for [semantic versioning](https://semver.org). The package version will not be incremented by default; you must explicitly include `+semver: major|minor|patch` as a commit message footer. When the package version _is_ incremented, the [release pipeline][Release Pipeline] will publish it automatically.
+
 ## License
 
 This project is licensed under the terms of the MIT license.
 
 [GitHub Repository]: https://github.com/joezawisa/HttpHealthChecks
+[Release Pipeline]: https://github.com/joezawisa/HttpHealthChecks/actions/workflows/release.yml
 [Microsoft Health Check Documentation]: https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks

@@ -1,0 +1,46 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+      - name: Restore Packages
+        run: dotnet restore
+        working-directory: HealthChecks.Http.Tests
+      - name: Build Tests
+        run: dotnet build --no-restore
+        working-directory: HealthChecks.Http.Tests
+      - name: Run Unit Tests
+        run: dotnet test --filter-trait Category=Unit --no-build --verbosity normal --report-xunit-trx --results-directory results --report-xunit-trx-filename unit-tests.trx
+        working-directory: HealthChecks.Http.Tests
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v7
+        with:
+          name: Test Results
+          path: HealthChecks.Http.Tests/results
+        if: ${{ !cancelled() }}
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v3
+        with:
+          name: .NET Tests
+          path: HealthChecks.Http.Tests/results/*.trx
+          reporter: dotnet-trx
+        if: ${{ !cancelled() }}

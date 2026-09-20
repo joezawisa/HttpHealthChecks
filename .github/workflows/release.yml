@@ -1,0 +1,123 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Test
+    uses: $/.github/workflows/test.yml
+    permissions:
+      contents: read
+      actions: write
+  
+  version:
+    name: Version
+    uses: $/.github/workflows/version.yml
+    permissions:
+      contents: read
+  
+  check:
+    name: Check for Version
+    needs:
+      - version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: none
+
+    outputs:
+      version: ${{ needs.package.outputs.version }}
+
+    steps:
+      - name: Check if Version Exists
+        run: |
+          ! dotnet package search HealthChecks.Http --source https://api.nuget.org/v3/index.json --exact-match --format json | grep --quiet '"version": "${{ needs.version.outputs.version }}"'
+  
+  package:
+    name: Package
+    needs:
+      - version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+      - name: Restore Packages
+        run: dotnet restore
+        working-directory: HealthChecks.Http
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+        working-directory: HealthChecks.Http
+      - name: Pack
+        run: dotnet pack --no-build /p:Version=${{ needs.version.outputs.version }}
+        working-directory: HealthChecks.Http
+      - name: Upload NuGet Package
+        uses: actions/upload-artifact@v7
+        with:
+          name: NuGet Package
+          path: HealthChecks.Http/bin/Release/*.nupkg
+
+  nuget:
+    name: Publish to NuGet
+    needs:
+      - test
+      - package
+      - check
+    environment: Release
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      id-token: write
+
+    steps:
+      - name: Login to NuGet
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: joezawisa
+      - name: Download NuGet Package
+        uses: actions/download-artifact@v8
+        with:
+          name: NuGet Package
+          path: artifacts
+      - name: Push to NuGet
+        run: |
+          dotnet nuget push artifacts/*.nupkg \
+          --source "https://api.nuget.org/v3/index.json" \
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+  
+  release:
+    name: Release on GitHub
+    needs:
+      - version
+      - package
+      - nuget
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download NuGet Package
+        uses: actions/download-artifact@v8
+        with:
+          name: NuGet Package
+          path: artifacts
+      - name: Create Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v${{ needs.version.outputs.version }}" \
+          --repo ${{ github.repository }} \
+          --target ${{ github.sha }} \
+          --notes "[NuGet Gallery: HealthChecks.Http ${{ needs.version.outputs.version }}](https://www.nuget.org/packages/HealthChecks.Http/${{ needs.version.outputs.version }})" \
+          artifacts/*.nupkg
