@@ -2,8 +2,7 @@
 
 A NuGet package providing quick and easy health checks for .NET applications that rely on external HTTP web APIs.
 
-[NuGet Gallery: HealthChecks.Http](https://www.nuget.org/packages/HealthChecks.Http)
-
+[![NuGet Badge](https://img.shields.io/nuget/v/HealthChecks.Http)](https://www.nuget.org/packages/HealthChecks.Http)
 [![Release](https://github.com/joezawisa/HttpHealthChecks/actions/workflows/release.yml/badge.svg)][Release Pipeline]
 
 ## Getting Started
